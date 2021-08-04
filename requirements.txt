@@ -1,0 +1,14 @@
+certifi==2021.5.30
+click==8.0.1
+Flask==2.0.0
+gensim==4.0.1
+itsdangerous==2.0.1
+Jinja2==3.0.1
+MarkupSafe==2.0.1
+numpy==1.21.0
+prometheus-client==0.11.0
+prometheus-flask-exporter==0.18.2
+python-Levenshtein==0.12.2
+scipy==1.7.0
+smart-open==5.1.0
+Werkzeug==2.0.1
