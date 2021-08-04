@@ -27,11 +27,11 @@ def append_line(file_path, content):
     try:
         with open(file_path, mode='a') as filename:
             filename.write(content)
-            filename.write('\n')  # 换行
+            filename.write('\n')
     except FileNotFoundError:
         with open(file_path, mode='w') as filename:
             filename.write(content)
-            filename.write('\n')  # 换行
+            filename.write('\n')
     except Exception as ignored:
         log.warn("写入文件出错")
 

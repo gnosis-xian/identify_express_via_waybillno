@@ -39,15 +39,11 @@ def load_persistence_obj():
         tfidf, index, documents, dictionary, file_content_map = file_funcs.load_persistence_objs()
 
 def calc_result_without_threshold(waybill_no, new_text, dictionary, index, tfidf, documents):
-    # 4.将待比较的文档转换为向量（词袋表示方法）
-    log.info('4.将待比较的文档转换为向量（词袋表示方法）')
-    # 使用doc2bow方法对每个不同单词的词频进行了统计，并将单词转换为其编号，然后以稀疏向量的形式返回结果
+    log.info('转化向量')
     new_vec = dictionary.doc2bow(new_text)
 
-    # 8.相似度计算并返回相似度最大的文本
-    log.info('# 8.相似度计算并返回相似度最大的文本')
-    new_vec_tfidf = tfidf[new_vec]  # 将待比较文档转换为tfidf表示方法
-    # 计算要比较的文档与语料库中每篇文档的相似度
+    log.info('相似度分析并返回最大文本')
+    new_vec_tfidf = tfidf[new_vec]
     sims = index[new_vec_tfidf]
     log.info(sims)
     sims_list = sims.tolist()
@@ -63,15 +59,11 @@ def calc_result_without_threshold(waybill_no, new_text, dictionary, index, tfidf
     return result_list
 
 def calc_result(waybill_no, new_text, dictionary, index, tfidf, documents):
-    # 4.将待比较的文档转换为向量（词袋表示方法）
-    log.info('4.将待比较的文档转换为向量（词袋表示方法）')
-    # 使用doc2bow方法对每个不同单词的词频进行了统计，并将单词转换为其编号，然后以稀疏向量的形式返回结果
+    log.info('转化向量')
     new_vec = dictionary.doc2bow(new_text)
 
-    # 8.相似度计算并返回相似度最大的文本
-    log.info('# 8.相似度计算并返回相似度最大的文本')
-    new_vec_tfidf = tfidf[new_vec]  # 将待比较文档转换为tfidf表示方法
-    # 计算要比较的文档与语料库中每篇文档的相似度
+    log.info('相似度分析并返回最大文本')
+    new_vec_tfidf = tfidf[new_vec]
     sims = index[new_vec_tfidf]
     log.info(sims)
     sims_list = sims.tolist()
