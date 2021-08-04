@@ -6,6 +6,6 @@ sudo docker run --name identify_express_via_waybillno \
 -p 8150:8150 \
 -d --privileged=true \
 --restart=always \
-registry.cn-hangzhou.aliyuncs.com/docker-gnosis/identify_express_via_waybillno:v1.0 \
+registry.cn-hangzhou.aliyuncs.com/docker-gnosis/identify_express_via_waybillno:v1.1 \
 sh /identify_express_via_waybillno/startup.sh && \
 sudo docker logs -f identify_express_via_waybillno
