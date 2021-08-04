@@ -29,6 +29,18 @@ log.basicConfig(format=constants.log_format, level=constants.log_level)
 def ok():
     return 'ok'
 
+@app.route('/identify/detail/waybillno', methods=['GET'])
+@by_path_counter
+def identify_detail_waybillno():
+    result_json = json.dumps({"code": "501", "message": "wait for a moment. calculating..."})
+    try:
+        waybill_no = request.args.get("waybillno")
+        result_list = waybill_regc.regc_without_threshold(waybill_no)
+        result_json = json.dumps(result_list)
+    except Exception as ignored:
+        log.error(ignored)
+        return result_json
+    return result_json
 
 @app.route('/identify/waybillno', methods=['GET'])
 @by_path_counter
