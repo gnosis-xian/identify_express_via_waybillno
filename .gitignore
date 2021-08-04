@@ -147,3 +147,4 @@ data_objs/*.bin
 data_objs/*.bin*
 
 *.lock
+.DS_Store
