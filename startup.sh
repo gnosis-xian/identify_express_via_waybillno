@@ -3,4 +3,4 @@ pip install gunicorn prometheus-flask-exporter -i https://pypi.tuna.tsinghua.edu
 export PYTHONPATH=$PYTHONPATH:/identify_express_via_waybillno
 cd /identify_express_via_waybillno && python import_dataset.py
 cd /identify_express_via_waybillno && rm -rf *.lock
-cd /identify_express_via_waybillno && gunicorn --workers=16 --threads=4 -b 0.0.0.0:8150 controller:app
+cd /identify_express_via_waybillno && gunicorn --workers=4 --threads=4 -b 0.0.0.0:8150 controller:app
