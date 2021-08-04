@@ -1,8 +1,19 @@
 @URL=127.0.0.1:8150
-@URL=192.168.207.88:8150
+# @URL=192.168.207.88:8150
+@URL=waybill-identify.test.api.elrsp.com
 
-### 
-GET http://{{URL}}/train/waybillno?waybillno=YT2600228281270&expressCode=yuantong&token=7ZBF4Hn4n5hJLcYk HTTP/1.1
+@waybill_no=R02TYT2145335310152
+@token=7ZBF4Hn4n5hJLcYk
+@express_code=yuantong
+
+### 识别运单
+GET http://{{URL}}/identify/waybillno?waybillno={{waybill_no}}
+
+### 获取sim详情
+GET http://{{URL}}/identify/detail/waybillno?waybillno={{waybill_no}}
+
+### 新增训练集合
+GET http://{{URL}}/train/waybillno?waybillno={{waybill_no}}&expressCode={{express_code}}&token={{token}} HTTP/1.1
 
 ### 重新加载数据集
 GET http://{{URL}}/identify/waybillno/reload
