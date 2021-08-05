@@ -2,7 +2,7 @@
 # @URL=192.168.207.88:8150
 @URL=waybill-identify.test.api.elrsp.com
 
-@waybill_no=R02TYT2145335310152
+@waybill_no=74100072695441
 @token=7ZBF4Hn4n5hJLcYk
 @express_code=yuantong
 
