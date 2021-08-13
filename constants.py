@@ -1,7 +1,7 @@
 import logging
 
 log_format = '%(asctime)s : %(levelname)s : %(message)s'
-log_level = logging.INFO
+log_level = logging.WARN
 
 dir_path = './data_set'
 
@@ -13,6 +13,6 @@ threshold_file = './express_threshold.txt'
 
 wait_integrate_file = './wait_integrate.txt'
 train_waybill_token = '7ZBF4Hn4n5hJLcYk'
-train_waybill_size_limit = 20
+train_waybill_size_limit = 100
 
 split_str = '==='
