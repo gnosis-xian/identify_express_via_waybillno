@@ -13,6 +13,6 @@ threshold_file = './express_threshold.txt'
 
 wait_integrate_file = './wait_integrate.txt'
 train_waybill_token = '7ZBF4Hn4n5hJLcYk'
-train_waybill_size_limit = 100
+train_waybill_size_limit = 20
 
 split_str = '==='
