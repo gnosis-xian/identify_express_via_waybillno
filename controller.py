@@ -12,6 +12,7 @@ import utils
 import waybill_regc
 import threading
 import import_dataset
+import reload_util
 
 log.basicConfig(format=constants.log_format, level=constants.log_level)
 
@@ -99,7 +100,7 @@ def identify_waybillno_reload():
         log.warning("重新加载数据集出现异常")
     finally:
         lock_util.remove_lock(current_lock)
-    waybill_regc.reload = True
+    reload_util.to_reload()
     return 'ok'
 
 if __name__ == '__main__':

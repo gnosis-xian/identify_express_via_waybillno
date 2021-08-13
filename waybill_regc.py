@@ -6,6 +6,7 @@ import constants
 import file_funcs
 import import_dataset
 import lock_util
+import reload_util
 import utils
 
 log.basicConfig(format=constants.log_format, level=constants.log_level)
@@ -15,9 +16,6 @@ index = None
 documents = None
 dictionary = None
 file_content_map = None
-
-reload = False
-
 
 def identify_waybill_express(waybill_no):
     # 文档预处理
@@ -90,16 +88,13 @@ def calc_result(waybill_no, new_text, dictionary, index, tfidf, documents):
 
 def reload_objs():
     load_persistence_obj()
-    global reload
-    reload = False
-
+    reload_util.has_reloaded()
 
 def regc(waybill_no):
     new_text = identify_waybill_express(waybill_no)
     if dictionary is None or index is None or tfidf is None or documents is None or file_content_map is None:
         load_persistence_obj()
-    global reload
-    if reload:
+    if reload_util.need_reload():
         t1 = threading.Thread(target=reload_objs)
         t1.start()
     result_list = calc_result(waybill_no, new_text, dictionary, index, tfidf, documents)
