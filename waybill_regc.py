@@ -88,13 +88,13 @@ def calc_result(waybill_no, new_text, dictionary, index, tfidf, documents):
 
 def reload_objs():
     load_persistence_obj()
-    reload_util.has_reloaded()
+    constants.reload = False
 
 def regc(waybill_no):
     new_text = identify_waybill_express(waybill_no)
     if dictionary is None or index is None or tfidf is None or documents is None or file_content_map is None:
         load_persistence_obj()
-    if reload_util.need_reload():
+    if constants.reload:
         t1 = threading.Thread(target=reload_objs)
         t1.start()
     result_list = calc_result(waybill_no, new_text, dictionary, index, tfidf, documents)

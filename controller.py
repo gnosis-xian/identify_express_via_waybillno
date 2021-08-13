@@ -100,7 +100,7 @@ def identify_waybillno_reload():
         log.warning("重新加载数据集出现异常")
     finally:
         lock_util.remove_lock(current_lock)
-    reload_util.to_reload()
+    constants.reload = True
     return 'ok'
 
 if __name__ == '__main__':

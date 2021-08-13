@@ -16,3 +16,5 @@ train_waybill_token = '7ZBF4Hn4n5hJLcYk'
 train_waybill_size_limit = 20
 
 split_str = '==='
+
+reload = False
