@@ -1,7 +1,7 @@
 import logging
 
 log_format = '%(asctime)s : %(levelname)s : %(message)s'
-log_level = logging.WARN
+log_level = logging.WARNING
 
 dir_path = './data_set'
 
