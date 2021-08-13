@@ -5,6 +5,8 @@ import pickle
 import constants
 import utils
 
+import lock_util
+
 log.basicConfig(format=constants.log_format, level=constants.log_level)
 
 
@@ -61,19 +63,29 @@ def read_data_set_from_file():
 
 def persistence(file_content_map, dictionary, index, tfidf, documents):
     # 序列化对象
-    if not os.path.exists(constants.objs_sub_dir):
-        os.makedirs(constants.objs_sub_dir)
-    file_content_map_file = open(get_persistence_obj_filepath("file_content_map"), "wb")
-    dictionary_file = open(get_persistence_obj_filepath("dictionary"), "wb")
-    index_file = open(get_persistence_obj_filepath("index"), "wb")
-    tfidf_file = open(get_persistence_obj_filepath("tfidf"), "wb")
-    documents_file = open(get_persistence_obj_filepath("documents"), "wb")
+    current_lock = 'persistence_objs.lock'
+    try:
+        if lock_util.locked(current_lock):
+            log.warning("序列化对象正在运行...")
+            return
+        lock_util.create_lock(current_lock)
+        if not os.path.exists(constants.objs_sub_dir):
+            os.makedirs(constants.objs_sub_dir)
+        file_content_map_file = open(get_persistence_obj_filepath("file_content_map"), "wb")
+        dictionary_file = open(get_persistence_obj_filepath("dictionary"), "wb")
+        index_file = open(get_persistence_obj_filepath("index"), "wb")
+        tfidf_file = open(get_persistence_obj_filepath("tfidf"), "wb")
+        documents_file = open(get_persistence_obj_filepath("documents"), "wb")
 
-    pickle.dump(file_content_map, file_content_map_file)
-    pickle.dump(dictionary, dictionary_file)
-    pickle.dump(index, index_file)
-    pickle.dump(tfidf, tfidf_file)
-    pickle.dump(documents, documents_file)
+        pickle.dump(file_content_map, file_content_map_file)
+        pickle.dump(dictionary, dictionary_file)
+        pickle.dump(index, index_file)
+        pickle.dump(tfidf, tfidf_file)
+        pickle.dump(documents, documents_file)
+    except Exception as e:
+        log.error("持久化对象发生错误")
+    finally:
+        lock_util.remove_lock(current_lock)
 
 
 def load_persistence_objs():

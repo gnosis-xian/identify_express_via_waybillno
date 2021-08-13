@@ -1,6 +1,6 @@
 @URL=127.0.0.1:8150
 # @URL=192.168.207.88:8150
-# @URL=waybill-identify.test.api.elrsp.com
+@URL=waybill-identify.test.api.elrsp.com
 
 @waybill_no=74100072695441
 @token=7ZBF4Hn4n5hJLcYk
