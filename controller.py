@@ -61,7 +61,11 @@ def identify_waybillno():
 @by_path_counter
 def train_waybillno():
     result_json = json.dumps({"code": "500", "message": "unknown err."})
+    current_lock = 'train_waybillno.lock'
     try:
+        if lock_util.locked(current_lock):
+            return json.dumps({"code": "502", "message": "locked."})
+        lock_util.create_lock(current_lock)
         waybill_no = request.args.get("waybillno")
         express_code = request.args.get("expressCode")
         token = request.args.get("token")
@@ -76,6 +80,8 @@ def train_waybillno():
     except Exception as ignored:
         log.error(ignored)
         return result_json
+    finally:
+        lock_util.remove_lock(current_lock)
     return result_json
 
 
