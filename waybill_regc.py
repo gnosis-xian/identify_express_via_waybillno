@@ -5,6 +5,7 @@ import threading
 import constants
 import file_funcs
 import import_dataset
+import lock_util
 import utils
 
 log.basicConfig(format=constants.log_format, level=constants.log_level)
@@ -32,11 +33,17 @@ def load_persistence_obj():
     global documents
     global dictionary
     global file_content_map
+    current_lock = 'obj_persistence.lock'
     try:
+        if lock_util.locked(current_lock):
+            return
+        lock_util.create_lock()
         tfidf, index, documents, dictionary, file_content_map = file_funcs.load_persistence_objs()
     except FileNotFoundError as fnfe:
         import_dataset.main()
         tfidf, index, documents, dictionary, file_content_map = file_funcs.load_persistence_objs()
+    finally:
+        lock_util.remove_lock()
 
 def calc_result_without_threshold(waybill_no, new_text, dictionary, index, tfidf, documents):
     log.info('转化向量')

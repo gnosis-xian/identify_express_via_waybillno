@@ -6,6 +6,7 @@ from prometheus_flask_exporter import PrometheusMetrics
 
 import constants
 import git_utils
+import lock_util
 import train_waybill
 import utils
 import waybill_regc
@@ -67,9 +68,10 @@ def train_waybillno():
         if token == constants.train_waybill_token and utils.not_blank(waybill_no) and utils.not_blank(express_code):
             train_waybill.append_waybill(waybill_no, express_code)
             train_waybill.judge_out_of_limit()
-            identify_waybillno_reload()
-            t1 = threading.Thread(target=git_utils.commit_and_push)
-            t1.start()
+            reload_thread = threading.Thread(target=identify_waybillno_reload)
+            reload_thread.start()
+            git_thread = threading.Thread(target=git_utils.commit_and_push)
+            git_thread.start()
             return json.dumps({"code": "200", "message": "success"})
     except Exception as ignored:
         log.error(ignored)
@@ -80,7 +82,16 @@ def train_waybillno():
 @app.route('/identify/waybillno/reload', methods=['GET'])
 @by_path_counter
 def identify_waybillno_reload():
-    import_dataset.main()
+    current_lock = 'reload_dataset.lock'
+    try:
+        if lock_util.locked(current_lock):
+            return 'locked'
+        lock_util.create_lock(current_lock)
+        import_dataset.main()
+    except Exception as ignored:
+        log.warning("重新加载数据集出现异常")
+    finally:
+        lock_util.remove_lock(current_lock)
     waybill_regc.reload = True
     return 'ok'
 
