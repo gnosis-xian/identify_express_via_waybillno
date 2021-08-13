@@ -30,7 +30,6 @@ by_path_counter = metrics.counter(
 def ok():
     return 'ok'
 
-
 @app.route('/identify/detail/waybillno', methods=['GET'])
 @by_path_counter
 def identify_detail_waybillno():
