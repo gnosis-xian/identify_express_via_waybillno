@@ -37,13 +37,13 @@ def load_persistence_obj():
     try:
         if lock_util.locked(current_lock):
             return
-        lock_util.create_lock()
+        lock_util.create_lock(current_lock)
         tfidf, index, documents, dictionary, file_content_map = file_funcs.load_persistence_objs()
     except FileNotFoundError as fnfe:
         import_dataset.main()
         tfidf, index, documents, dictionary, file_content_map = file_funcs.load_persistence_objs()
     finally:
-        lock_util.remove_lock()
+        lock_util.remove_lock(current_lock)
 
 def calc_result_without_threshold(waybill_no, new_text, dictionary, index, tfidf, documents):
     log.info('转化向量')
