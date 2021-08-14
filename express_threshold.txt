@@ -1,6 +1,10 @@
-zhongtong==0.1
-shentong==0.1
-yunda==0.03
-yuantong==0.1
-huitongkuaidi==0.1
-jtexpress==0.1
+zhongtong==0.01
+zhongtongguoji==0.01
+shentong==0.01
+yunda==0.01
+yuantong==0.01
+huitongkuaidi==0.01
+jtexpress==0.01
+debangkuaidi==0.01
+debangwuliu==0.01
+tiantian==0.01
