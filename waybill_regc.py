@@ -81,6 +81,8 @@ def calc_result(waybill_no, new_text, dictionary, index, tfidf, documents):
         express_code = list(file_content_map_keys)[sims_list.index(sim)]
         threshold_express_map = file_funcs.read_express_threshold()
         threshold = threshold_express_map.get(express_code)
+        if threshold is None:
+            threshold = constants.DEFAULT_REGC_THRESHOLD
         if threshold is not None and sim > threshold:
             result_list.append({"express_code": express_code, "prob_percentage": sim})
     return result_list
@@ -107,6 +109,15 @@ def regc(waybill_no):
 def regc_without_threshold(waybill_no):
     new_text = identify_waybill_express(waybill_no)
     return calc_result_without_threshold(waybill_no, new_text, dictionary, index, tfidf, documents)
+
+def has_result(waybill_no):
+    try:
+        result_list = regc(waybill_no)
+        if result_list is None or len(result_list) == 0:
+            return False
+        return True
+    except Exception as e:
+        return True
 
 def main():
     waybill_no = 'JT5045023079024'

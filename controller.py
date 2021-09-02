@@ -72,6 +72,8 @@ def train_waybillno():
         express_code = request.args.get("expressCode")
         token = request.args.get("token")
         if token == constants.train_waybill_token and utils.not_blank(waybill_no) and utils.not_blank(express_code):
+            if waybill_regc.has_result(waybill_no):
+                return json.dumps({"code": "201", "message": "{} can be regc.".format(waybill_no)})
             train_waybill.append_waybill(waybill_no, express_code)
             train_waybill.judge_out_of_limit()
             reload_thread = threading.Thread(target=identify_waybillno_reload)
