@@ -4,7 +4,7 @@
 
 @waybill_no=yt3209892631013
 @token=7ZBF4Hn4n5hJLcYk
-@express_code=shunfeng
+@express_code=yuantong
 
 ### 识别运单
 GET http://{{URL}}/identify/waybillno?waybillno={{waybill_no}}
