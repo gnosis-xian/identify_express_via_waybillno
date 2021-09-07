@@ -3,6 +3,19 @@
 ## 通过运单号识别所属快递公司
 基于TF-IDF
 
+## 请求示例
+```http request
+GET http://waybill-identify.test.api.elrsp.com/identify/detail/waybillno?waybillno=YT2145335310152
+
+响应：
+[
+    {
+        "express_code":"yuantong",
+        "prob_percentage":0.40485092997550964
+    }
+]
+```
+
 ## Quick startup with docker
 ```shell
 sudo docker run --name identify_express_via_waybillno \
