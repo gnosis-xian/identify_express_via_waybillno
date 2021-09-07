@@ -5,9 +5,10 @@
 
 ## 请求示例
 ```http request
-GET http://waybill-identify.test.api.elrsp.com/identify/detail/waybillno?waybillno=YT2145335310152
-
+http://waybill-identify.test.api.elrsp.com/identify/detail/waybillno?waybillno=YT2145335310152
+```
 响应：
+```json
 [
     {
         "express_code":"yuantong",
